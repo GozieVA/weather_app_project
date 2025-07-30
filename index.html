@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wherther Api</title>
+    <link rel="stylesheet" href="">
+</head>
+<style>
+    body {
+        background-image: url(london.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+
+    .box {
+        background-color: rgba(128, 128, 128, 0.422);
+        width: 600px;
+        border: 2px solid;
+        padding: 40px 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin-top: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 500px;
+        width: 90%;
+    }
+
+    
+
+    .btn {
+        text-align: center;
+        background-color: blue;
+        margin-top: 5px;
+        border-radius: 2px;
+    }
+
+    .search {
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 2px;
+    }
+
+    .city {
+        text-align: center;
+    }
+
+    .temperature {
+        text-align: center;
+    }
+
+    .sky {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <h1 class="header">Weather App</h1>
+
+        <div>
+            <input type="search" class="search" name="search"><br>
+            <button class="btn">Search</button>
+        </div>
+        <h2 class="city">Enugu</h2>
+
+        <h3><span class="temperature">25</span> &deg; C</h3>
+
+        <h4 class="sky">light rain</h4>
+
+
+        <script>
+            let search = document.querySelector(".search")
+            let button = document.querySelector(".btn")
+
+            let city = document.querySelector(".city")
+            let temperature = document.querySelector(".temperature")
+            let sky = document.querySelector(".sky")
+
+            button.addEventListener("click", () => {
+                let user_location = search.value.trim()
+
+                if (!user_location) {
+                    return alert("please enter a city")
+                }
+
+                // loader.classlist.add("loader")
+                fetch(`http://api.weatherapi.com/v1/current.json?key=aea25342cb444e37859101954252407&q=${user_location}&aqi=no`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        city.textContent = data.location.name
+                        // country.textContent = data.location.country
+                        // icon.src = data.current.condition.icon
+                        sky.textContent = data.current.condition.text
+                        temperature.textContent = data.current.temp_c
+                    })
+            })    
+        </script>
+</body>
+
+</html>
